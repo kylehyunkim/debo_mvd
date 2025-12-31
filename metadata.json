@@ -1,0 +1,7 @@
+{
+  "name": "Debernardi Development Construction and Remodeling",
+  "description": "A modern, SEO-optimized professional website for a premium construction and remodeling business, featuring portfolio showcase, services, and client testimonials.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
