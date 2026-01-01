@@ -1,9 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PROJECTS } from '../constants';
 
 const Portfolio: React.FC = () => {
   const [filter, setFilter] = useState('All');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const categories = ['All', ...new Set(PROJECTS.map(p => p.category))];
 
   const filteredProjects = filter === 'All' 
@@ -36,20 +40,30 @@ const Portfolio: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <div key={project.id} className="group relative overflow-hidden bg-gray-200 aspect-[4/3] rounded-sm">
-              <img
-                src={project.imageUrl}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center p-6 text-center">
-                <span className="text-[#5bb450] text-xs font-bold uppercase tracking-widest mb-2">{project.category}</span>
-                <h3 className="text-white text-xl font-bold uppercase tracking-tight mb-4">{project.title}</h3>
-                <div className="w-12 h-1 bg-[#5bb450]"></div>
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project) => (
+              <div key={project.id} className="group relative overflow-hidden bg-gray-200 aspect-[4/3] rounded-sm">
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  onError={(e) => {
+                    console.error('Failed to load image:', project.imageUrl);
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center p-6 text-center">
+                  <span className="text-[#5bb450] text-xs font-bold uppercase tracking-widest mb-2">{project.category}</span>
+                  <h3 className="text-white text-xl font-bold uppercase tracking-tight mb-4">{project.title}</h3>
+                  <div className="w-12 h-1 bg-[#5bb450]"></div>
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-gray-500 py-12">
+              No projects found in this category.
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>

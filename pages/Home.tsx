@@ -1,18 +1,24 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SERVICES, FAQS } from '../constants';
 
 const Home: React.FC = () => {
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenFAQ(openFAQ === index ? null : index);
+  };
+
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center text-white">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://picsum.photos/seed/hero/1920/1080"
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
             className="w-full h-full object-cover"
-            alt="Construction background"
+            alt="Modern Bay Area home development"
           />
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
@@ -23,7 +29,7 @@ const Home: React.FC = () => {
             <span className="text-[#5bb450]">Dream Project</span>
           </h1>
           <p className="text-lg md:text-xl font-semibold mb-10 max-w-2xl text-gray-200">
-            Licensed quality renovation and remodeling services in Pleasanton and surrounding areas. Experience the Debernardi Approach.
+            Licensed quality renovation and remodeling services in Pleasanton and surrounding areas.
           </p>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 justify-center md:justify-start">
             <Link
@@ -48,7 +54,7 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-16 items-center">
           <div className="md:w-1/2">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              The Debernardi Construction World
+              The DeBernardi Construction World
             </h2>
             <div className="w-20 h-1 bg-[#5bb450] mb-8"></div>
             <h4 className="text-xl font-bold mb-6 text-gray-700 uppercase tracking-wide">
@@ -56,13 +62,13 @@ const Home: React.FC = () => {
             </h4>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                Upgrade your home with Debernardi Development – the Bay Area's trusted design/build experts for quality renovation and remodeling services. With years of experience in California construction, remodeling, and custom building, our expertise remains matchless.
+                Upgrade your home with DeBernardi Development – the Bay Area's trusted design/build experts for quality renovation and remodeling services. With years of experience in California construction, remodeling, and custom building, our expertise remains matchless.
               </p>
               <p>
                 We handle all aspects of the remodeling process for you, from the first step of planning and permits (License #604607) through to our perfect execution.
               </p>
               <p>
-                To ensure the highest level of professionalism, we manage everything to save you considerable time and unnecessary headaches. This is what we call the Debernardi Approach.
+                To ensure the highest level of professionalism, we manage everything to save you considerable time and unnecessary headaches.
               </p>
             </div>
             <div className="mt-10">
@@ -101,7 +107,7 @@ const Home: React.FC = () => {
                 <p className="text-gray-500 text-sm leading-relaxed mb-6">
                   {service.description}
                 </p>
-                <Link to="/services" className="text-xs font-bold uppercase tracking-widest text-[#5bb450] flex items-center hover:translate-x-1 transition-transform">
+                <Link to={`/services#${service.id}`} className="text-xs font-bold uppercase tracking-widest text-[#5bb450] flex items-center hover:translate-x-1 transition-transform">
                   Learn More
                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
                 </Link>
@@ -146,13 +152,36 @@ const Home: React.FC = () => {
             <p className="text-gray-500">Everything you need to know about our process and services in the Bay Area.</p>
           </div>
           
-          <div className="space-y-6">
+          <div className="space-y-4">
             {FAQS.map((faq, index) => (
-              <div key={index} className="bg-white p-6 md:p-8 shadow-sm border border-gray-100 rounded">
-                <h5 className="text-lg font-bold mb-3 text-gray-900">{faq.question}</h5>
-                <p className="text-gray-600 italic leading-relaxed text-sm">
-                  {faq.answer}
-                </p>
+              <div key={index} className="bg-white shadow-sm border border-gray-100 rounded overflow-hidden">
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full p-6 md:p-8 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                >
+                  <h5 className="text-lg font-bold text-gray-900 pr-4">{faq.question}</h5>
+                  <svg
+                    className={`w-5 h-5 text-[#5bb450] flex-shrink-0 transition-transform duration-300 ${
+                      openFAQ === index ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    openFAQ === index ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <div className="px-6 md:px-8 pb-6 md:pb-8 pt-0">
+                    <p className="text-gray-600 italic leading-relaxed text-sm">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

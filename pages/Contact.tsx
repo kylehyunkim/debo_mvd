@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +9,10 @@ const Contact: React.FC = () => {
     projectType: 'Remodeling',
     message: '',
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

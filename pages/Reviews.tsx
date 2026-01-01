@@ -39,22 +39,6 @@ const Reviews: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* BBB & Trust Seal Section */}
-        <div className="bg-white p-12 rounded shadow-sm border border-gray-100 flex flex-col md:flex-row items-center justify-around gap-12 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
-          <div className="text-center">
-            <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Accredited Business</div>
-            <img src="https://picsum.photos/seed/bbb/200/80" alt="BBB Seal" className="h-16 object-contain" />
-          </div>
-          <div className="text-center">
-            <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Top Rated</div>
-            <img src="https://picsum.photos/seed/buildzoom/200/80" alt="BuildZoom Seal" className="h-16 object-contain" />
-          </div>
-          <div className="text-center">
-            <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Professional Source</div>
-            <img src="https://picsum.photos/seed/houzz/200/80" alt="Houzz Seal" className="h-16 object-contain" />
-          </div>
-        </div>
       </div>
     </div>
   );

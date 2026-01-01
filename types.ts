@@ -7,6 +7,7 @@ export interface Service {
   description: string;
   icon: React.ReactNode;
   imageUrl: string;
+  checklist?: string[];
 }
 
 export interface Project {

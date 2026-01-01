@@ -1,11 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';
 import Services from './pages/Services';
 import Reviews from './pages/Reviews';
 import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
+import DebernardiApproach from './pages/DebernardiApproach';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,14 +32,14 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg py-3' : 'bg-transparent py-5'}`}>
+    <header className={`fixed w-full z-50 transition-all duration-300 bg-black/90 backdrop-blur-sm ${isScrolled ? 'shadow-lg py-3' : 'py-5'}`}>
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
         <Link to="/" className="flex flex-col">
-          <span className={`text-xl md:text-2xl font-bold uppercase tracking-tight ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
-            Debernardi
+          <span className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white">
+            DeBernardi Development
           </span>
-          <span className={`text-[10px] md:text-xs uppercase font-semibold tracking-widest ${isScrolled ? 'text-[#5bb450]' : 'text-[#5bb450]'}`}>
-            Development & Construction
+          <span className="text-[10px] md:text-xs uppercase font-semibold tracking-widest text-[#5bb450]">
+            Construction and Remodeling
           </span>
         </Link>
 
@@ -47,7 +50,7 @@ const Header: React.FC = () => {
               key={link.path}
               to={link.path}
               className={`text-sm font-semibold uppercase tracking-wider transition-colors hover:text-[#5bb450] ${
-                location.pathname === link.path ? 'text-[#5bb450]' : isScrolled ? 'text-gray-700' : 'text-white'
+                location.pathname === link.path ? 'text-[#5bb450]' : 'text-white'
               }`}
             >
               {link.label}
@@ -61,9 +64,9 @@ const Header: React.FC = () => {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <div className="space-y-1.5">
-            <span className={`block w-6 h-0.5 ${isScrolled ? 'bg-gray-900' : 'bg-white'}`}></span>
-            <span className={`block w-6 h-0.5 ${isScrolled ? 'bg-gray-900' : 'bg-white'}`}></span>
-            <span className={`block w-6 h-0.5 ${isScrolled ? 'bg-gray-900' : 'bg-white'}`}></span>
+            <span className="block w-6 h-0.5 bg-white"></span>
+            <span className="block w-6 h-0.5 bg-white"></span>
+            <span className="block w-6 h-0.5 bg-white"></span>
           </div>
         </button>
       </div>
@@ -92,7 +95,7 @@ const Footer: React.FC = () => {
     <footer className="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
       <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div>
-          <h4 className="text-xl font-bold uppercase tracking-tighter mb-6">Debernardi</h4>
+          <h4 className="text-xl font-bold uppercase tracking-tighter mb-6">DeBernardi Development</h4>
           <p className="text-gray-400 text-sm leading-relaxed mb-6">
             The Bay Area's trusted design/build experts for quality renovation and remodeling services. We are passionate about building dreams.
           </p>
@@ -114,8 +117,10 @@ const Footer: React.FC = () => {
           <p className="text-xs text-gray-500 mb-4 uppercase tracking-tighter font-semibold">Serving the East Bay & Peninsula</p>
           <ul className="grid grid-cols-2 gap-x-2 gap-y-2 text-[11px] text-gray-400 uppercase tracking-tighter">
             <li>Pleasanton</li><li>Dublin</li><li>Livermore</li><li>Sunol</li>
-            <li>Danville</li><li>San Ramon</li><li>Walnut Creek</li><li>Los Altos</li>
-            <li>Palo Alto</li><li>Los Gatos</li><li>Redwood City</li><li>Moraga</li>
+            <li>Danville</li><li>San Ramon</li><li>Walnut Creek</li><li>Atherton</li>
+            <li>Woodside</li><li>Blackhawk</li><li>Los Altos</li><li>Los Altos Hills</li>
+            <li>Los Gatos</li><li>Redwood City</li><li>Palo Alto</li><li>Lafayette</li>
+            <li>Orinda</li><li>Ruby Hills</li><li>Moraga</li><li>Copperopolis</li>
           </ul>
         </div>
 
@@ -145,8 +150,19 @@ const Footer: React.FC = () => {
           </ul>
         </div>
       </div>
-      <div className="container mx-auto px-4 md:px-8 mt-16 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs">
-        <p>Copyright © {new Date().getFullYear()} Debernardi Development Inc. All rights reserved.</p>
+      <div className="container mx-auto px-4 md:px-8 mt-16 pt-8 border-t border-gray-800">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 text-gray-500 text-xs">
+          <p>Copyright © {new Date().getFullYear()} DeBernardi Development Construction and Remodeling. All rights reserved.</p>
+          <div className="flex gap-4">
+            <Link to="/privacy-policy" className="hover:text-[#5bb450] transition-colors">
+              Privacy Policy
+            </Link>
+            <span>|</span>
+            <Link to="/terms-conditions" className="hover:text-[#5bb450] transition-colors">
+              Terms & Conditions
+            </Link>
+          </div>
+        </div>
       </div>
     </footer>
   );
@@ -164,6 +180,9 @@ const App: React.FC = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-conditions" element={<TermsConditions />} />
+            <Route path="/debernardi-approach" element={<DebernardiApproach />} />
           </Routes>
         </main>
         <Footer />
